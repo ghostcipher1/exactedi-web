@@ -1,4 +1,4 @@
-import matter from "gray-matter";
+import { parseFrontmatter } from "./parse-frontmatter";
 
 export interface BlogPostMeta {
   slug: string;
@@ -27,7 +27,7 @@ const modules = import.meta.glob("../../content/blog/*.md", {
 }) as Record<string, string>;
 
 function parsePost(path: string, raw: string): BlogPost | null {
-  const { data, content } = matter(raw);
+  const { data, content } = parseFrontmatter(raw);
   const slug =
     (typeof data.slug === "string" && data.slug) ||
     path.replace(/.*\//, "").replace(/\.md$/, "");
@@ -43,7 +43,9 @@ function parsePost(path: string, raw: string): BlogPost | null {
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     author_name: String(data.author_name ?? "ExactEDI Team"),
     author_role: String(data.author_role ?? ""),
-    published_at: String(data.published_at ?? new Date().toISOString().slice(0, 10)),
+    published_at: String(
+      data.published_at ?? new Date().toISOString().slice(0, 10)
+    ),
     read_time_minutes: Number(data.read_time_minutes ?? 8),
     featured: Boolean(data.featured),
     status: String(data.status ?? "published"),
