@@ -102,7 +102,16 @@ export const devDocPages: DevDocPage[] = [
     description: "SQLite import schema and persistence patterns.",
     file: "DATABASE_SCHEMA.md",
     navLabel: "Database Schema",
-  },  
+  },
+  {
+    id: "x12-mapping",
+    path: "/dev-docs/x12-mapping",
+    title: "X12 Mapping Reference",
+    description:
+      "English-to-X12 vocabulary for SDK surfaces and validation diagnostics.",
+    file: "x12-mapping/index.md",
+    navLabel: "X12 Mapping",
+  },
   {
     id: "x12-mappings",
     path: "/dev-docs/x12-mapping/mappings",
