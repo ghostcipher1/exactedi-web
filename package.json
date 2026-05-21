@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "type-check": "tsc --noEmit --project tsconfig.app.json"
+    "type-check": "tsc --noEmit --project tsconfig.app.json",
+    "sync-docs": "mkdir -p src/content/docs/x12-mapping && cp ../exactedi/docs/*.md src/content/docs/ 2>/dev/null; cp ../exactedi/docs/x12-mapping/*.md src/content/docs/x12-mapping/"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "4.0.2",
@@ -22,7 +23,8 @@
     "react-i18next": "^15.6.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.6.3",
-    "recharts": "3.2.0"
+    "recharts": "3.2.0",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

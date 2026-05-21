@@ -108,7 +108,7 @@ function CheckCell({ included }: { included: boolean }) {
       </div>
     );
   }
-  return <span className="text-gray-500">—</span>;
+  return <span className="text-stedi-gray-text">—</span>;
 }
 
 const revealStyle = (
@@ -162,6 +162,8 @@ function FadeCard({
   );
 }
 
+const recommendedColumnClass = "bg-stedi-green-light";
+
 export default function PricingPage() {
   useConversionPageView("view_pricing");
   const [openMobileTier, setOpenMobileTier] = useState<string>("professional");
@@ -179,21 +181,21 @@ export default function PricingPage() {
         keywords="ExactEDI pricing, X12 EDI licensing, healthcare EDI licensing, on-premises EDI"
         jsonLd={[pricingJsonLd, faqJsonLd]}
       />
-      <main className="min-h-screen bg-stedi-dark">
+      <main className="min-h-screen bg-white">
         <Navbar />
 
         {/* Hero */}
-        <section className="pt-28 pb-10 md:pt-36 md:pb-14">
+        <section className="pt-28 pb-12 md:pt-36 md:pb-16 bg-stedi-dark">
           <div className="max-w-5xl mx-auto px-4 md:px-6 text-center">
             <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
               Pricing
             </h1>
-            <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed mb-3">
+            <p className="text-base md:text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed mb-3">
               ExactEDI is licensed by capability and deployment scope. All
               tiers run entirely on your hardware — no telemetry, no
               phone-home, no PHI ever leaves your network.
             </p>
-            <p className="text-sm md:text-base text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-base text-gray-500 max-w-3xl mx-auto leading-relaxed">
               Pricing scales with deployment footprint and trading-partner-specific
               requirements. Beta pricing is locked through GA for design
               partners.
@@ -202,124 +204,132 @@ export default function PricingPage() {
         </section>
 
         {/* Desktop Comparison Table */}
-        <section className="pb-16 md:pb-20 hidden lg:block">
+        <section className="py-12 md:py-16 hidden lg:block">
           <div className="max-w-6xl mx-auto px-4 md:px-6">
-            <div className="rounded-xl border border-stedi-gray-border/20 bg-stedi-darker overflow-hidden">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-stedi-gray-border/20">
-                    <th className="px-5 py-4 text-sm font-medium text-gray-400 w-[40%]">
-                      Capability
-                    </th>
-                    {pricingTiers.map((tier) => (
-                      <th
-                        key={tier.name}
-                        className="px-4 py-4 text-center w-[15%]"
-                      >
-                        <div className="flex flex-col items-center">
-                          {tier.isRecommended && (
-                            <span className="mb-1.5 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-stedi-green/10 text-stedi-green border border-stedi-green/20">
-                              Recommended
+            <div className="rounded-xl border border-stedi-gray-border bg-white overflow-hidden">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b border-stedi-gray-border bg-stedi-gray-light">
+                      <th className="px-5 py-4 text-xs font-medium text-stedi-gray-text w-[40%]">
+                        Capability
+                      </th>
+                      {pricingTiers.map((tier) => (
+                        <th
+                          key={tier.name}
+                          className={`px-4 py-4 text-center w-[15%] ${
+                            tier.isRecommended ? recommendedColumnClass : ""
+                          }`}
+                        >
+                          <div className="flex flex-col items-center">
+                            {tier.isRecommended && (
+                              <span className="mb-1.5 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-stedi-green/10 text-stedi-green border border-stedi-green/20">
+                                Recommended
+                              </span>
+                            )}
+                            <span
+                              className={`text-sm font-semibold ${
+                                tier.isTrial
+                                  ? "text-stedi-gray-text"
+                                  : "text-stedi-dark-text"
+                              }`}
+                            >
+                              {tier.name}
                             </span>
-                          )}
-                          <span
-                            className={`text-sm font-semibold ${
-                              tier.isTrial ? "text-gray-400" : "text-white"
+                          </div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {capabilityRows.map((cap, i) => (
+                      <FadeTr
+                        key={i}
+                        delayMs={i * 60}
+                        className="border-b border-stedi-gray-border last:border-0"
+                      >
+                        <td className="px-5 py-3.5 text-sm text-stedi-dark-text">
+                          <CapabilityLabel
+                            label={cap.label}
+                            hasRoadmapLink={cap.hasRoadmapLink}
+                            hasVersionTag={cap.hasVersionTag}
+                          />
+                        </td>
+                        {cap.values.map((val, j) => (
+                          <td
+                            key={j}
+                            className={`px-4 py-3.5 text-center ${
+                              j === 2 ? recommendedColumnClass : ""
                             }`}
                           >
-                            {tier.name}
-                          </span>
-                        </div>
-                      </th>
+                            <div className="flex justify-center">
+                              <CheckCell included={val} />
+                            </div>
+                          </td>
+                        ))}
+                      </FadeTr>
                     ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {capabilityRows.map((cap, i) => (
-                    <FadeTr
-                      key={i}
-                      delayMs={i * 60}
-                      className="border-b border-stedi-gray-border/10"
-                    >
-                      <td className="px-5 py-3.5 text-sm text-gray-300">
-                        <CapabilityLabel
-                          label={cap.label}
-                          hasRoadmapLink={cap.hasRoadmapLink}
-                          hasVersionTag={cap.hasVersionTag}
-                        />
-                      </td>
-                      {cap.values.map((val, j) => (
-                        <td
-                          key={j}
-                          className={`px-4 py-3.5 text-center ${
-                            j === 2 ? "bg-stedi-green/5" : ""
-                          }`}
-                        >
-                          <div className="flex justify-center">
-                            <CheckCell included={val} />
-                          </div>
-                        </td>
-                      ))}
-                    </FadeTr>
-                  ))}
-                  {metaRows.map((row, i) => (
-                    <FadeTr
-                      key={`meta-${i}`}
-                      delayMs={(capabilityRows.length + i) * 60}
-                      className="border-b border-stedi-gray-border/10"
-                    >
-                      <td className="px-5 py-3.5 text-sm text-gray-400">
-                        {row.label}
-                      </td>
-                      {row.values.map((val, j) => (
-                        <td
-                          key={j}
-                          className={`px-4 py-3.5 text-center text-sm ${
-                            j === 2 ? "bg-stedi-green/5" : ""
-                          } ${
-                            row.isMono
-                              ? "font-mono text-gray-400"
-                              : "text-gray-300"
-                          }`}
-                        >
-                          {val}
-                        </td>
-                      ))}
-                    </FadeTr>
-                  ))}
-                  {/* CTA Row */}
-                  <FadeTr
-                    delayMs={(capabilityRows.length + metaRows.length) * 60}
-                  >
-                    <td className="px-5 py-4" />
-                    {pricingTiers.map((tier, j) => (
-                      <td
-                        key={tier.name}
-                        className={`px-4 py-4 text-center ${
-                          j === 2 ? "bg-stedi-green/5" : ""
-                        }`}
+                    {metaRows.map((row, i) => (
+                      <FadeTr
+                        key={`meta-${i}`}
+                        delayMs={(capabilityRows.length + i) * 60}
+                        className="border-b border-stedi-gray-border last:border-0"
                       >
-                        <Link
-                          to={tier.ctaHref}
-                          className={`inline-block w-full text-center px-4 py-2.5 text-sm font-semibold rounded-md transition-colors whitespace-nowrap ${
-                            tier.isRecommended
-                              ? "bg-stedi-green text-white hover:bg-stedi-green-hover"
-                              : "border border-stedi-gray-border/30 text-gray-300 hover:border-stedi-green/50 hover:text-white"
+                        <td className="px-5 py-3.5 text-sm text-stedi-gray-text">
+                          {row.label}
+                        </td>
+                        {row.values.map((val, j) => (
+                          <td
+                            key={j}
+                            className={`px-4 py-3.5 text-center text-sm ${
+                              j === 2 ? recommendedColumnClass : ""
+                            } ${
+                              row.isMono
+                                ? "font-mono text-stedi-gray-text"
+                                : "text-stedi-dark-text"
+                            }`}
+                          >
+                            {val}
+                          </td>
+                        ))}
+                      </FadeTr>
+                    ))}
+                    <FadeTr
+                      delayMs={(capabilityRows.length + metaRows.length) * 60}
+                    >
+                      <td className="px-5 py-4" />
+                      {pricingTiers.map((tier, j) => (
+                        <td
+                          key={tier.name}
+                          className={`px-4 py-4 text-center ${
+                            j === 2 ? recommendedColumnClass : ""
                           }`}
                         >
-                          {tier.ctaLabel}
-                        </Link>
-                      </td>
-                    ))}
-                  </FadeTr>
-                </tbody>
-              </table>
+                          <Link
+                            to={tier.ctaHref}
+                            className={`inline-block w-full text-center px-4 py-2.5 text-sm font-semibold rounded-md transition-colors whitespace-nowrap ${
+                              tier.isRecommended
+                                ? "bg-stedi-green text-white hover:bg-stedi-green-hover"
+                                : "border border-stedi-gray-border text-stedi-dark-text hover:border-stedi-green/50 hover:text-stedi-green"
+                            }`}
+                          >
+                            {tier.ctaLabel}
+                          </Link>
+                        </td>
+                      ))}
+                    </FadeTr>
+                  </tbody>
+                </table>
+              </div>
             </div>
+            <p className="mt-6 text-xs text-stedi-gray-text text-center max-w-4xl mx-auto leading-relaxed">
+              {pricingFootnote}
+            </p>
           </div>
         </section>
 
         {/* Mobile Accordion */}
-        <section className="pb-16 lg:hidden">
+        <section className="py-12 lg:hidden">
           <div className="max-w-md mx-auto px-4 space-y-3">
             {pricingTiers.map((tier, tierIdx) => {
               const isOpen = openMobileTier === tier.name;
@@ -327,7 +337,11 @@ export default function PricingPage() {
                 <FadeCard
                   key={tier.name}
                   delayMs={tierIdx * 80}
-                  className="rounded-xl border border-stedi-gray-border/20 bg-stedi-darker overflow-hidden"
+                  className={`rounded-xl border overflow-hidden ${
+                    tier.isRecommended
+                      ? "border-stedi-green/30 bg-stedi-green-light"
+                      : "border-stedi-gray-border bg-white"
+                  }`}
                 >
                   <button
                     type="button"
@@ -337,7 +351,9 @@ export default function PricingPage() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <span
                         className={`text-sm font-semibold ${
-                          tier.isTrial ? "text-gray-400" : "text-white"
+                          tier.isTrial
+                            ? "text-stedi-gray-text"
+                            : "text-stedi-dark-text"
                         }`}
                       >
                         {tier.name}
@@ -350,15 +366,15 @@ export default function PricingPage() {
                     </div>
                     <div className="w-6 h-6 flex items-center justify-center shrink-0">
                       <i
-                        className={`ri-arrow-down-s-line text-gray-400 transition-transform duration-200 ${
+                        className={`ri-arrow-down-s-line text-stedi-gray-text transition-transform duration-200 ${
                           isOpen ? "rotate-180" : ""
                         }`}
                       />
                     </div>
                   </button>
                   {isOpen && (
-                    <div className="px-4 pb-4">
-                      <div className="space-y-2 mb-4">
+                    <div className="px-4 pb-4 border-t border-stedi-gray-border/60">
+                      <div className="space-y-2 mb-4 pt-3">
                         {capabilityRows.map((cap, i) => {
                           const included = cap.values[tierIdx];
                           return (
@@ -367,7 +383,7 @@ export default function PricingPage() {
                                 {included ? (
                                   <i className="ri-check-line text-stedi-green" />
                                 ) : (
-                                  <span className="text-gray-500 text-sm">
+                                  <span className="text-stedi-gray-text text-sm">
                                     —
                                   </span>
                                 )}
@@ -375,8 +391,8 @@ export default function PricingPage() {
                               <span
                                 className={`text-sm ${
                                   included
-                                    ? "text-gray-200"
-                                    : "text-gray-500"
+                                    ? "text-stedi-dark-text"
+                                    : "text-stedi-gray-text"
                                 }`}
                               >
                                 <CapabilityLabel
@@ -394,13 +410,13 @@ export default function PricingPage() {
                             className="flex items-start gap-2.5 pt-1"
                           >
                             <div className="w-5 h-5 flex items-center justify-center shrink-0" />
-                            <span className="text-sm text-gray-400">
+                            <span className="text-sm text-stedi-gray-text">
                               {row.label}:{" "}
                               <span
                                 className={
                                   row.isMono
-                                    ? "font-mono text-gray-300"
-                                    : "text-gray-300"
+                                    ? "font-mono text-stedi-dark-text"
+                                    : "text-stedi-dark-text"
                                 }
                               >
                                 {row.values[tierIdx]}
@@ -414,7 +430,7 @@ export default function PricingPage() {
                         className={`block w-full text-center px-4 py-2.5 text-sm font-semibold rounded-md transition-colors whitespace-nowrap ${
                           tier.isRecommended
                             ? "bg-stedi-green text-white hover:bg-stedi-green-hover"
-                            : "border border-stedi-gray-border/30 text-gray-300 hover:border-stedi-green/50 hover:text-white"
+                            : "border border-stedi-gray-border text-stedi-dark-text hover:border-stedi-green/50 hover:text-stedi-green"
                         }`}
                       >
                         {tier.ctaLabel}
@@ -424,35 +440,29 @@ export default function PricingPage() {
                 </FadeCard>
               );
             })}
-          </div>
-        </section>
-
-        {/* Footnote */}
-        <section className="pb-12 md:pb-16">
-          <div className="max-w-6xl mx-auto px-4 md:px-6">
-            <p className="text-xs text-gray-500 text-center max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xs text-stedi-gray-text text-center leading-relaxed pt-2">
               {pricingFootnote}
             </p>
           </div>
         </section>
 
         {/* FAQ */}
-        <section className="pb-20 md:pb-24">
+        <section className="py-12 md:py-16 bg-stedi-gray-light">
           <div className="max-w-3xl mx-auto px-4 md:px-6">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-8 text-center">
+            <h2 className="text-xl md:text-2xl font-bold text-stedi-dark-text mb-8 text-center">
               Frequently asked questions
             </h2>
-            <div className="space-y-5">
+            <div className="space-y-4">
               {pricingFaqs.map((faq, i) => (
                 <FadeCard
                   key={i}
                   delayMs={i * 100}
-                  className="rounded-lg border border-stedi-gray-border/20 bg-stedi-darker p-5"
+                  className="rounded-xl border border-stedi-gray-border bg-white p-5 md:p-6"
                 >
-                  <h3 className="text-sm font-semibold text-white mb-2">
+                  <h3 className="text-sm font-semibold text-stedi-dark-text mb-2">
                     {faq.q}
                   </h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">
+                  <p className="text-sm text-stedi-gray-text leading-relaxed">
                     {faq.a}
                   </p>
                 </FadeCard>

@@ -1,4 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  devDocNavDropdownGroups,
+  devDocPageById,
+} from "@/lib/dev-docs/config";
 
 function ExactEDILogo({ scrolled }: { scrolled: boolean }) {
   return (
@@ -10,9 +15,15 @@ function ExactEDILogo({ scrolled }: { scrolled: boolean }) {
   );
 }
 
+type NavLinkItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
 type NavItem =
-  | { label: string; href: string; external?: boolean }
-  | { label: string; children: { label: string; href: string; external?: boolean }[] };
+  | NavLinkItem
+  | { label: string; groups: typeof devDocNavDropdownGroups };
 
 const navLinks: NavItem[] = [
   { label: "Product", href: "#" },
@@ -22,9 +33,7 @@ const navLinks: NavItem[] = [
   { label: "Security", href: "/security" },
   {
     label: "Developers",
-    children: [
-      { label: "Dev docs", href: "/dev-docs", external: false },
-    ],
+    groups: devDocNavDropdownGroups,
   },
 ];
 
@@ -44,7 +53,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     };
@@ -59,18 +71,65 @@ export default function Navbar() {
     ? "bg-white/95 backdrop-blur-sm border-b border-stedi-gray-border shadow-sm"
     : "bg-transparent";
 
+  const renderDevelopersDropdown = () => (
+    <div className="absolute top-full left-0 mt-1 w-56 max-h-[70vh] overflow-y-auto bg-white rounded-lg shadow-lg border border-stedi-gray-border py-1 z-50">
+      {devDocNavDropdownGroups.map((group, groupIndex) => (
+        <div key={group.label}>
+          {groupIndex > 0 && (
+            <div className="my-1 border-t border-stedi-gray-border" />
+          )}
+          {group.pageIds.map((pageId) => {
+            const page = devDocPageById[pageId];
+            if (!page?.navLabel) return null;
+            return (
+              <Link
+                key={pageId}
+                to={page.path}
+                onClick={() => setDropdownOpen(false)}
+                className="flex items-center px-3 py-2 text-sm text-stedi-dark-text hover:bg-stedi-gray hover:text-stedi-green transition-colors"
+              >
+                {page.navLabel}
+              </Link>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderDevelopersMobile = () => (
+    <div className="pl-4 space-y-1">
+      {devDocNavDropdownGroups.map((group) =>
+        group.pageIds.map((pageId) => {
+          const page = devDocPageById[pageId];
+          if (!page?.navLabel) return null;
+          return (
+            <Link
+              key={pageId}
+              to={page.path}
+              onClick={() => setMobileOpen(false)}
+              className="block px-3 py-2 text-sm text-stedi-gray-text rounded-md hover:bg-stedi-gray"
+            >
+              {page.navLabel}
+            </Link>
+          );
+        })
+      )}
+    </div>
+  );
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${bgClass}`}
     >
       <div className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4">
-        <a href="/" className="flex items-center">
+        <Link to="/" className="flex items-center">
           <ExactEDILogo scrolled={scrolled} />
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((item) => {
-            if ("children" in item) {
+            if ("groups" in item) {
               return (
                 <div key={item.label} className="relative" ref={dropdownRef}>
                   <button
@@ -80,54 +139,37 @@ export default function Navbar() {
                   >
                     {item.label}
                     <div className="w-4 h-4 flex items-center justify-center">
-                      <i className={`ri-arrow-down-s-line text-xs transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
+                      <i
+                        className={`ri-arrow-down-s-line text-xs transition-transform ${dropdownOpen ? "rotate-180" : ""}`}
+                      />
                     </div>
                   </button>
-                  {dropdownOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-44 bg-white rounded-lg shadow-lg border border-stedi-gray-border py-1 z-50">
-                      {item.children.map((child) => (
-                        <a
-                          key={child.label}
-                          href={child.href}
-                          target={child.external ? "_blank" : undefined}
-                          rel={child.external ? "noopener noreferrer" : undefined}
-                          className="flex items-center px-3 py-2 text-sm text-stedi-dark-text hover:bg-stedi-gray hover:text-stedi-blue transition-colors"
-                        >
-                          {child.label}
-                          {child.external && (
-                            <div className="w-4 h-4 flex items-center justify-center ml-auto">
-                              <i className="ri-external-link-line text-xs text-stedi-gray-text" />
-                            </div>
-                          )}
-                        </a>
-                      ))}
-                    </div>
-                  )}
+                  {dropdownOpen && renderDevelopersDropdown()}
                 </div>
               );
             }
             return (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
                 className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors hover:bg-black/5 ${textColor}`}
               >
                 {item.label}
-              </a>
+              </Link>
             );
           })}
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-          <a
-            href="/request-access"
+          <Link
+            to="/request-access"
             className="px-4 py-2 text-sm font-medium rounded-full bg-stedi-green text-white hover:bg-stedi-green-hover transition-colors whitespace-nowrap shadow-sm"
           >
             Request beta access
             <i className="ri-arrow-right-line ml-1 text-xs" />
-          </a>
+          </Link>
         </div>
 
         <button
@@ -143,52 +185,37 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-stedi-gray-border px-4 py-4 space-y-2">
           {navLinks.map((item) => {
-            if ("children" in item) {
+            if ("groups" in item) {
               return (
                 <div key={item.label} className="space-y-1">
                   <span className="block px-3 py-2 text-sm font-medium text-stedi-dark-text rounded-md">
                     {item.label}
                   </span>
-                  <div className="pl-4 space-y-1">
-                    {item.children.map((child) => (
-                      <a
-                        key={child.label}
-                        href={child.href}
-                        target={child.external ? "_blank" : undefined}
-                        rel={child.external ? "noopener noreferrer" : undefined}
-                        className="flex items-center px-3 py-2 text-sm text-stedi-gray-text rounded-md hover:bg-stedi-gray"
-                      >
-                        {child.label}
-                        {child.external && (
-                          <div className="w-4 h-4 flex items-center justify-center ml-auto">
-                            <i className="ri-external-link-line text-xs text-stedi-gray-text" />
-                          </div>
-                        )}
-                      </a>
-                    ))}
-                  </div>
+                  {renderDevelopersMobile()}
                 </div>
               );
             }
             return (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
+                to={item.href}
                 target={item.external ? "_blank" : undefined}
                 rel={item.external ? "noopener noreferrer" : undefined}
+                onClick={() => setMobileOpen(false)}
                 className="block px-3 py-2 text-sm font-medium text-stedi-dark-text rounded-md hover:bg-stedi-gray"
               >
                 {item.label}
-              </a>
+              </Link>
             );
           })}
           <div className="pt-2 border-t border-stedi-gray-border">
-            <a
-              href="/request-access"
+            <Link
+              to="/request-access"
+              onClick={() => setMobileOpen(false)}
               className="block px-4 py-2 text-sm font-medium rounded-full bg-stedi-green text-white text-center"
             >
               Request beta access
-            </a>
+            </Link>
           </div>
         </div>
       )}

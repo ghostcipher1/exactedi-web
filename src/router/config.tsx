@@ -5,10 +5,22 @@ import RoadmapPage from "../pages/roadmap/page";
 import RequestAccessPage from "../pages/request-access/page";
 import PricingPage from "../pages/pricing/page";
 import SecurityPage from "../pages/security/page";
-import DevDocsPage from "../pages/dev-docs/page";
+import DevDocsLayout from "../pages/dev-docs/components/DevDocsLayout";
+import DocPage from "../pages/dev-docs/DocPage";
 import BlogPage from "../pages/blog/page";
 import BlogArticlePage from "../pages/blog/article/page";
 import UseCasePage from "../pages/use-cases/page";
+import { devDocPages } from "../lib/dev-docs/config";
+
+const devDocChildRoutes: RouteObject[] = [
+  { index: true, element: <DocPage /> },
+  ...devDocPages
+    .filter((page) => page.id !== "getting-started")
+    .map((page) => ({
+      path: page.path.replace(/^\/dev-docs\/?/, ""),
+      element: <DocPage />,
+    })),
+];
 
 const routes: RouteObject[] = [
   {
@@ -33,7 +45,8 @@ const routes: RouteObject[] = [
   },
   {
     path: "/dev-docs",
-    element: <DevDocsPage />,
+    element: <DevDocsLayout />,
+    children: devDocChildRoutes,
   },
   {
     path: "/blog",
