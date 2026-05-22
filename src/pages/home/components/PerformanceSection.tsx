@@ -5,10 +5,11 @@ export default function PerformanceSection() {
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-stedi-dark-text mb-4">
-          Predictable performance. Reproducible results. Every run, on any hardware.
+          Fast, streaming, deterministic
         </h2>
         <p className="text-sm text-stedi-gray-text mb-10 md:mb-14 max-w-3xl leading-relaxed">
-          ExactEDI is deterministic: the same input produces the same output with the same diagnostics, every single run. Two reference benchmarks measured on identical fixtures so you can verify behavior on your own machines.
+          Processes 1 GB files in under one minute. Streaming architecture handles
+          multi-gigabyte files on standard hardware. Same input, same output — every run.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">

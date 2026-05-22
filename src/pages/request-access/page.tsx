@@ -10,8 +10,8 @@ const siteUrl = (import.meta.env.VITE_SITE_URL as string) || "https://exactedi.c
 const requestJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Request Beta Access — ExactEDI",
-  "description": "ExactEDI is in private beta with a hand-picked cohort. We review applications weekly and prioritize fit. Apply for beta access today.",
+  "name": "Request Early Access — ExactEDI",
+  "description": "ExactEDI is in beta. Request early access through the customer portal — licensed library for on-premises X12 validation.",
   "url": `${siteUrl}/request-access`,
 };
 
@@ -69,8 +69,8 @@ export default function RequestAccessPage() {
   return (
     <>
       <SEO
-        title="Request Beta Access — ExactEDI"
-        description="ExactEDI is in private beta with a hand-picked cohort. We review applications weekly and prioritize fit. Apply for beta access today."
+        title="Request Early Access — ExactEDI"
+        description="ExactEDI is in beta. Request early access — licensed via the customer portal for on-premises 837 and 835 validation."
         canonicalPath="/request-access"
         keywords="ExactEDI beta, EDI engine beta access, healthcare EDI trial, X12 EDI beta"
         jsonLd={requestJsonLd}
@@ -81,10 +81,11 @@ export default function RequestAccessPage() {
       <section className="pt-28 pb-12 md:pt-36 md:pb-16 bg-stedi-dark">
         <div className="max-w-3xl mx-auto px-4 md:px-6 text-center">
           <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
-            Request beta access
+            Request early access
           </h1>
           <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            ExactEDI is in private beta with a hand-picked cohort. We review applications weekly and prioritize fit.
+            ExactEDI is in beta. Licensed builds are provisioned through the customer portal
+            after we review your use case.
           </p>
         </div>
       </section>
@@ -224,7 +225,7 @@ export default function RequestAccessPage() {
                   type="text"
                   required
                   className="w-full px-4 py-2.5 text-sm rounded-lg border border-stedi-gray-border bg-white text-stedi-dark-text placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-stedi-green/30"
-                  placeholder="C++, Python, .NET"
+                  placeholder="Python, .NET"
                 />
               </div>
 

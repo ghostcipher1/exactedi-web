@@ -23,10 +23,11 @@ export default function CodeCarousel() {
     <section className="py-16 md:py-24 bg-stedi-dark">
       <div className="max-w-5xl mx-auto px-4 md:px-6">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-          Explain X12. Then generate it back.
+          How it works
         </h2>
         <p className="text-base text-gray-400 mb-8 max-w-2xl leading-relaxed">
-          One engine handles both directions: read arcane segment loops into structured English, then write valid X12 from validated facts. Native libraries — not a hosted API, not a service.
+          CLI-first. Parse and validate on your hardware, emit structured JSON / JSONL for
+          pipelines — not a hosted API, not a cloud service.
         </p>
 
         {/* Tabs */}

@@ -117,7 +117,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-xs text-stedi-gray-text max-w-xl leading-relaxed">
-              ExactEDI is a native, on-premises X12 EDI engine. Not a SaaS. Not a cloud API. Not a clearinghouse. Beta software — see the validation roadmap for current SNIP coverage.
+              ExactEDI is a licensed library — on-premises, zero network calls. Not a SaaS, cloud API, or clearinghouse. Beta software — see the validation roadmap for current SNIP coverage.
             </p>
           </div>
           <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

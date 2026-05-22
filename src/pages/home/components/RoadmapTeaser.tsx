@@ -7,10 +7,12 @@ export default function RoadmapTeaser() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-14">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-stedi-dark-text mb-2">
-              Validation roadmap — so you know exactly when Explain and Normalize get deeper
+              Validation roadmap
             </h2>
             <p className="text-sm text-stedi-gray-text max-w-2xl leading-relaxed">
-              ExactEDI publishes its SNIP coverage explicitly so you know exactly what field-level rules Explain and Normalize will enforce at each release. Beta customers get SNIP 1 + envelope balancing today. GA brings SNIP 2–4, which means richer fact extraction and stricter generation constraints.
+              Available now: SNIP Type 1, 837 and 835 support, PHI-safe extraction, CLI.
+              In progress: HIPAA TR3 (SNIP Types 2–4). Planned: external code sets (SNIP Type 5)
+              and X12 generation.
             </p>
           </div>
           <a
@@ -74,7 +76,7 @@ export default function RoadmapTeaser() {
         {/* Supported transactions */}
         <div>
           <h4 className="text-sm font-semibold text-stedi-dark-text mb-3">
-            Transaction types you can read, validate, and generate
+            Supported transaction types (beta)
           </h4>
           <div className="flex flex-wrap gap-2">
             {supportedTransactions.map((tx) => (

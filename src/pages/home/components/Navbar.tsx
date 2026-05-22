@@ -167,7 +167,7 @@ export default function Navbar() {
             to="/request-access"
             className="px-4 py-2 text-sm font-medium rounded-full bg-stedi-green text-white hover:bg-stedi-green-hover transition-colors whitespace-nowrap shadow-sm"
           >
-            Request beta access
+            Request early access
             <i className="ri-arrow-right-line ml-1 text-xs" />
           </Link>
         </div>
@@ -214,7 +214,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="block px-4 py-2 text-sm font-medium rounded-full bg-stedi-green text-white text-center"
             >
-              Request beta access
+              Request early access
             </Link>
           </div>
         </div>

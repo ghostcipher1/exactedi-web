@@ -1,12 +1,12 @@
 const capabilities = [
-  { label: "Parse", desc: "Full X12 envelope tracking with byte-precise source mapping" },
-  { label: "Validate", desc: "Deterministic SNIP conformance — same input, same diagnostics, every run" },
-  { label: "Explain", desc: "PHI-safe facts with human-readable field names for queries and LLMs" },
-  { label: "Generate ACKs", desc: "999 implementation acknowledgments built from structured input" },
-  { label: "Normalize", desc: "Reconstruct valid X12 from facts, business rules, and partner configs" },
-  { label: "Stream", desc: "Constant memory regardless of file size. No surprises, no OOMs." },
-  { label: "Async APIs", desc: "std::future, async/await, Task\u003CT\u003E. Fits your existing concurrency model." },
-  { label: "Language bindings", desc: "C, C++, C#/.NET, Python. Drop in. Compile. Ship." },
+  { label: "Parse", desc: "837 claims and 835 remittances to structured JSON / JSONL" },
+  { label: "Validate", desc: "X12 structural and envelope integrity (SNIP Type 1 today)" },
+  { label: "Extract", desc: "PHI-safe facts — HIPAA Safe Harbor compliant output" },
+  { label: "Stream", desc: "1 GB files in under one minute; multi-gigabyte files on standard hardware" },
+  { label: "CLI", desc: "Pipe output into ETL and pipeline workflows" },
+  { label: "On-premises", desc: "Zero network calls — all processing is local" },
+  { label: "Deterministic", desc: "Same input, same output, every run" },
+  { label: "Bindings", desc: "Python and .NET — licensed via the customer portal" },
 ];
 
 export default function Capabilities() {

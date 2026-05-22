@@ -69,7 +69,7 @@ export default function UseCasePage() {
                 }
                 className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-full bg-stedi-green text-white hover:bg-stedi-green-hover transition-colors"
               >
-                Request beta access
+                Request early access
                 <i className="ri-arrow-right-line text-xs" />
               </Link>
               <Link
@@ -170,7 +170,7 @@ export default function UseCasePage() {
               }
               className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold rounded-full bg-stedi-green text-white hover:bg-stedi-green-hover transition-colors"
             >
-              Request beta access
+              Request early access
             </Link>
           </div>
         </section>

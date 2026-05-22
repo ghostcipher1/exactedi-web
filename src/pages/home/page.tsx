@@ -23,25 +23,21 @@ const homeJsonLd = {
       "@type": "WebSite",
       "name": "ExactEDI",
       "url": siteUrl,
-      "description": "Native X12 EDI engine with developer-first bindings and English-based data abstractions",
+      "description": "On-premises X12 EDI library for parsing and validating 837 claims and 835 remittances",
     },
     {
       "@type": "Organization",
       "name": "ExactEDI",
       "url": siteUrl,
-      "description": "Deterministic, on-premises X12 EDI engine with generation support",
+      "description": "Deterministic, on-premises X12 EDI library for healthcare claims and remittance validation",
     },
     {
       "@type": "SoftwareApplication",
       "name": "ExactEDI",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Linux, Windows, macOS",
-      "description": "Deterministic, on-premises X12 EDI engine with developer-first bindings, English-based data abstractions, and generation support. Parses, validates, explains, and generates healthcare claims and remittance files.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-      },
+      "description": "High-performance library that parses and validates 837 claims and 835 remittances on your infrastructure with zero network calls.",
+      "softwareVersion": "1.0.x beta",
     },
   ],
 };
@@ -50,8 +46,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="ExactEDI — Deterministic X12 EDI with Developer-First Bindings"
-        description="ExactEDI is a native, on-premises X12 EDI engine with developer-friendly bindings, English-based data abstractions, and full generation support. Runs on your hardware. Zero telemetry."
+        title="ExactEDI — Catch malformed claims before a payer does"
+        description="ExactEDI parses and validates 837 claims and 835 remittances against X12 and HIPAA TR3 rules — entirely on your infrastructure, with zero network calls."
         canonicalPath="/"
         keywords="ExactEDI, X12 EDI, HIPAA EDI, 837 claims, 835 remittance, EDI engine, developer tools, on-premises"
         jsonLd={homeJsonLd}

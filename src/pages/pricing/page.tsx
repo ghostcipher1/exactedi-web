@@ -191,14 +191,13 @@ export default function PricingPage() {
               Pricing
             </h1>
             <p className="text-base md:text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed mb-3">
-              ExactEDI is licensed by capability and deployment scope. All
-              tiers run entirely on your hardware — no telemetry, no
-              phone-home, no PHI ever leaves your network.
+              ExactEDI is licensed by capability and deployment scope. All tiers run
+              entirely on your hardware — no telemetry, no phone-home, no PHI ever leaves
+              your network.
             </p>
             <p className="text-sm md:text-base text-gray-500 max-w-3xl mx-auto leading-relaxed">
-              Pricing scales with deployment footprint and trading-partner-specific
-              requirements. Beta pricing is locked through GA for design
-              partners.
+              Compare tiers below and contact sales for a quote. No dollar amounts are
+              published on this site.
             </p>
           </div>
         </section>

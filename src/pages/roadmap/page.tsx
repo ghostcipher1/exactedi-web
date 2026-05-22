@@ -11,7 +11,7 @@ const roadmapJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "ExactEDI SNIP Validation Roadmap — X12 HIPAA EDI Compliance",
-  "description": "ExactEDI publishes its SNIP coverage explicitly so buyers know exactly what they're getting at each release. Beta customers know what they have today and what's landing next month.",
+  "description": "SNIP validation coverage for ExactEDI: available now, in progress, and planned. On-premises 837 and 835 parsing and validation.",
   "url": `${siteUrl}/roadmap`,
 };
 
@@ -31,7 +31,7 @@ export default function RoadmapPage() {
     <>
       <SEO
         title="ExactEDI SNIP Validation Roadmap — X12 HIPAA EDI Compliance"
-        description="ExactEDI publishes its SNIP coverage explicitly so buyers know exactly what they're getting at each release. Beta customers know what they have today and what's landing next month."
+        description="SNIP validation coverage: Type 1 available in beta today. HIPAA TR3 (Types 2–4) in progress. External code sets and X12 generation planned."
         canonicalPath="/roadmap"
         keywords="ExactEDI roadmap, SNIP validation, X12 EDI roadmap, HIPAA EDI validation"
         jsonLd={roadmapJsonLd}
@@ -48,7 +48,9 @@ export default function RoadmapPage() {
               Validation Roadmap
             </h1>
             <p className="text-base md:text-lg text-gray-400 max-w-3xl leading-relaxed">
-              ExactEDI publishes its SNIP coverage explicitly so buyers know exactly what they&apos;re getting at each release. The roadmap is on the site, not buried in a sales conversation. Beta customers know what they have today and what&apos;s landing next month.
+              Available now: SNIP Type 1, 837 and 835, PHI-safe extraction, Python and .NET
+              bindings, CLI. In progress: HIPAA TR3 (SNIP Types 2–4). Planned: external code
+              sets (SNIP Type 5) and X12 generation.
             </p>
           </div>
         </section>
@@ -124,7 +126,9 @@ export default function RoadmapPage() {
             </div>
 
             <div className="mt-6 text-xs text-stedi-gray-text">
-              Beta customers get SNIP 1 + envelope balancing today. They pin to a beta version, see new SNIP levels land in release notes as they ship, and never get a rug-pull at GA — the validation diagnostic shape is forward-compatible from beta.1 onward.
+              Validation today covers X12 structural and envelope integrity (SNIP Type 1).
+              HIPAA TR3 validation is in progress. ExactEDI is beta software — see release
+              notes as new SNIP levels ship.
             </div>
           </div>
         </section>

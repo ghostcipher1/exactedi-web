@@ -1,18 +1,19 @@
 const values = [
   {
-    title: "Speak English.",
+    title: "On-premises.",
     description:
-      "EDI segments become JSONL, facts, and schemas your team can read and query without memorizing loop references or segment IDs.",
+      "All processing runs locally. PHI never leaves your network — zero network dependencies.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M4 7h20M4 14h14M4 21h10" stroke="#1E6FEB" strokeWidth="2" strokeLinecap="round" />
+        <rect x="4" y="8" width="20" height="14" rx="2" stroke="#1E6FEB" strokeWidth="2" />
+        <path d="M10 8V6a4 4 0 018 0v2" stroke="#1E6FEB" strokeWidth="2" />
       </svg>
     ),
   },
   {
-    title: "Generate, don't just parse.",
+    title: "Deterministic.",
     description:
-      "Build outbound 837s, 999 ACKs, and custom transactions from structured data. Two-way EDI, not a one-way pipe.",
+      "Identical input always produces identical output — auditable and testable in regulated environments.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
         <path d="M14 4v16M8 14l6 6 6-6" stroke="#1E6FEB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -21,9 +22,9 @@ const values = [
     ),
   },
   {
-    title: "Drop it in and go.",
+    title: "Drop into your pipeline.",
     description:
-      "One CLI command. Clear error messages. Four language bindings. Documentation that actually helps. No hosted API to configure.",
+      "CLI-first with JSON / JSONL output. Python and .NET bindings. Licensed via the customer portal.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
         <rect x="5" y="5" width="18" height="18" rx="3" stroke="#1E6FEB" strokeWidth="2" />

@@ -9,7 +9,7 @@ export interface SnipLevel {
 
 export const snipLevels: SnipLevel[] = [
   { level: "1", name: "EDI syntax / standard integrity", what: "Segment terminators, structure, control envelope", beta: "✓", ga: "✓", v1x: "✓" },
-  { level: "3", name: "Balancing (envelope/control counts)", what: "ISA/IEA, GS/GE, ST/SE control numbers and counts", beta: "✓", ga: "✓", v1x: "✓" },
+  { level: "3", name: "Balancing (envelope/control counts)", what: "ISA/IEA, GS/GE, ST/SE control numbers and counts", beta: "—", ga: "✓", v1x: "✓" },
   { level: "3", name: "Balancing (monetary/claim totals)", what: "CLP totals = line sums; transaction totals reconcile", beta: "—", ga: "✓", v1x: "✓" },
   { level: "2", name: "HIPAA IG conformance (837P/I/D, 835)", what: "Limits, repeats, qualifiers, codes", beta: "—", ga: "✓", v1x: "✓" },
   { level: "2", name: "HIPAA IG conformance (other transactions)", what: "270/271, 276/277, 278, 820, 834, 999", beta: "—", ga: "partial", v1x: "✓" },
@@ -22,10 +22,4 @@ export const snipLevels: SnipLevel[] = [
 export const supportedTransactions = [
   { code: "837P/I/D", name: "Claims (professional, institutional, dental)" },
   { code: "835", name: "Remittance Advice" },
-  { code: "270/271", name: "Eligibility Inquiry / Response" },
-  { code: "276/277", name: "Claim Status Inquiry / Response" },
-  { code: "278", name: "Authorization" },
-  { code: "820", name: "Premium Payment" },
-  { code: "834", name: "Benefit Enrollment" },
-  { code: "999", name: "Implementation Acknowledgment" },
 ];

@@ -9,7 +9,7 @@ export interface PricingTier {
 export const pricingTiers: PricingTier[] = [
   {
     name: "Trial",
-    ctaLabel: "Start a trial",
+    ctaLabel: "Request early access",
     ctaHref: "/request-access?tier=trial",
     isTrial: true,
     isRecommended: false,
@@ -45,45 +45,36 @@ export interface CapabilityRow {
 }
 
 export const capabilityRows: CapabilityRow[] = [
-  { label: "Parse X12 → JSONL", values: [true, true, true, true] },
+  { label: "Parse X12 → JSON / JSONL", values: [true, true, true, true] },
   {
-    label: "Validate envelope & structure (SNIP 1 + control-balancing)",
+    label: "Validate envelope & structure (SNIP Type 1)",
     values: [true, true, true, true],
   },
   {
-    label:
-      "HIPAA SNIP 2–4 conformance (shipping through GA — see roadmap)",
+    label: "HIPAA TR3 validation (SNIP Type 2 — see roadmap)",
     values: [false, true, true, true],
     hasRoadmapLink: true,
   },
   {
-    label: "PHI-safe Facts JSON (Explain)",
+    label: "PHI-safe fact extraction",
     values: [false, true, true, true],
   },
   {
-    label: "Combined parse + facts (Normalize)",
-    values: [false, true, true, true],
+    label: "837 and 835 support",
+    values: [true, true, true, true],
   },
   {
-    label: "Language bindings — C, C++, .NET, Python",
+    label: "Language bindings — Python and .NET",
     values: [false, true, true, true],
   },
-  { label: "SQLite import & query", values: [false, false, true, true] },
+  { label: "CLI", values: [true, true, true, true] },
   {
-    label: "Batch / multi-file processing",
+    label: "Balancing & situational rules (SNIP Types 3–4)",
     values: [false, false, true, true],
+    hasRoadmapLink: true,
   },
   {
-    label: "Companion-guide DSL — trading-partner rules (SNIP 7)",
-    values: [false, false, false, true],
-    hasVersionTag: true,
-  },
-  {
-    label: "Custom output formats",
-    values: [false, false, false, true],
-  },
-  {
-    label: "Extended throughput limits",
+    label: "Extended throughput / fleet licensing",
     values: [false, false, false, true],
   },
 ];
@@ -113,21 +104,21 @@ export const metaRows: MetaRow[] = [
 export const pricingFaqs = [
   {
     q: "Why don't you publish prices?",
-    a: "ExactEDI is deployed into healthcare infrastructure where the right shape of a license depends on transaction volume, deployment footprint, and trading-partner coverage. We work those out with each customer rather than guessing on a pricing page. Most beta deals close within a week.",
+    a: "ExactEDI is deployed into healthcare infrastructure where the right shape of a license depends on transaction volume, deployment footprint, and trading-partner coverage. We work those out with each customer rather than guessing on a pricing page.",
   },
   {
     q: "What does 'hardware-bound' mean?",
     a: "Each license file is cryptographically bound to the machine ID of the system it runs on (or to a defined fleet, for Enterprise). The license is signed offline by us and verified locally by the SDK — no internet connection is ever required. Re-binding to new hardware is handled through your customer portal.",
   },
   {
-    q: "What does Trial include and how do I start one?",
-    a: "Trial gives you 14 days of Parse + Validate against your own files, on a single machine, with no internet required. Request access using the form — qualified leads are provisioned within one business day.",
+    q: "How do I get early access?",
+    a: "Request early access using the form. Qualified leads are provisioned through the customer portal — ExactEDI is not distributed via public package registries.",
   },
   {
     q: "Can I embed ExactEDI in a product I sell or distribute to my own customers?",
-    a: "Yes — embedding ExactEDI inside a product you redistribute (whether commercial, OEM, or as part of a SaaS offering) is covered by a separate ISV/OEM agreement. Contact sales to scope a license that fits your distribution model.",
+    a: "Embedding ExactEDI inside a product you redistribute is covered by a separate ISV/OEM agreement. Contact sales to scope a license that fits your distribution model.",
   },
 ];
 
 export const pricingFootnote =
-  "All tiers run entirely on your hardware. No telemetry. No phone-home. License files are signed offline and verified locally. Beta pricing locked through GA for design partners. Embedding ExactEDI in a product you redistribute (OEM/ISV) requires a separate agreement — contact sales. ExactEDI is distributed via the customer portal — not on PyPI, NuGet, or any public registry.";
+  "All tiers run entirely on your hardware. No telemetry. No phone-home. License files are signed offline and verified locally. ExactEDI is distributed via the customer portal only — not on PyPI, NuGet, or any public registry. Contact sales for quotes; no dollar amounts published.";

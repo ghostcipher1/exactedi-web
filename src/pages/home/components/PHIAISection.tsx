@@ -5,18 +5,18 @@ export default function PHIAISection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-stedi-dark-text mb-4">
-              From arcane segment loops to structured English your code can reason about.
+              PHI-safe fact extraction
             </h2>
             <p className="text-base text-stedi-gray-text mb-6 leading-relaxed">
-              ExactEDI&apos;s Explain layer produces structured, de-identified analytical data with human-readable field names designed for LLM consumption, analytics warehouses, and direct SQL queries. HIPAA Safe Harbor compliant — same input always produces the same output.
+              ExactEDI produces HIPAA Safe Harbor compliant structured output for analytics
+              pipelines and ETL — de-identified facts with deterministic, reproducible output.
             </p>
             <ul className="space-y-3 mb-6">
               {[
-                "Patient identifiers stripped per Safe Harbor",
-                "Human-readable field names — no memorizing loop references",
-                "Structured JSON schema for RAG, retrieval, and warehouse ETL",
-                "Deterministic redaction — auditable and reproducible",
-                "~8.6 KB per transaction (post beta.2 optimization)",
+                "Safe Harbor-compliant de-identification of facts output",
+                "Structured JSON / JSONL for warehouse and pipeline integration",
+                "Deterministic extraction — same input, same output",
+                "Scoped claim: applies to fact-extractor output, not raw X12 storage",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-stedi-gray-text">
                   <div className="w-5 h-5 flex items-center justify-center shrink-0 mt-0.5">
@@ -30,7 +30,7 @@ export default function PHIAISection() {
               href="/request-access"
               className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium rounded-full bg-stedi-green text-white hover:bg-stedi-green-hover transition-colors"
             >
-              Request beta access
+              Request early access
               <i className="ri-arrow-right-line text-xs" />
             </a>
           </div>

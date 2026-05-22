@@ -6,7 +6,7 @@ export default function ArchitectureSection() {
           Architecture
         </h2>
         <p className="text-sm text-stedi-gray-text mb-10 md:mb-14 max-w-2xl leading-relaxed">
-          Native libraries in 4 languages. One core engine. Zero network dependencies. Drop it into your build and ship.
+          Python and .NET bindings over one core engine. Zero network dependencies. Licensed via the customer portal.
         </p>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
@@ -28,7 +28,7 @@ export default function ArchitectureSection() {
             <div className="w-40 rounded-xl border border-stedi-gray-border bg-white p-4 text-center">
               <p className="text-xs font-medium text-stedi-dark-text mb-2">SDK</p>
               <div className="flex flex-wrap justify-center gap-1">
-                {["Python", "C#/.NET", "C", "C++"].map((lang) => (
+                {["Python", ".NET"].map((lang) => (
                   <span
                     key={lang}
                     className="px-2 py-0.5 rounded-md bg-stedi-green-light text-xs font-medium text-stedi-dark-text"
@@ -64,7 +64,7 @@ export default function ArchitectureSection() {
             <div className="w-36 h-20 rounded-xl bg-stedi-dark flex items-center justify-center border border-white/10">
               <div className="text-center">
                 <span className="text-sm font-bold text-white">Core Engine</span>
-                <p className="text-[10px] text-gray-400 mt-0.5">C++20 · streaming · zero-copy</p>
+                <p className="text-[10px] text-gray-400 mt-0.5">streaming · zero network calls</p>
               </div>
             </div>
           </div>

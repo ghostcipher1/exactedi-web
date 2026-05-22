@@ -55,9 +55,11 @@ export default function CompliancePanel() {
             <div>
               <h4 className="text-sm font-semibold text-stedi-dark-text mb-1">What we do not claim</h4>
               <p className="text-xs text-stedi-gray-text leading-relaxed">
-                ExactEDI is not currently a full SNIP 2-7 conformance suite (see{" "}
+                Validation today covers SNIP Type 1 (structural / envelope integrity).
+                HIPAA TR3 validation is in progress (see{" "}
                 <a href="/roadmap" className="text-stedi-green hover:underline">roadmap</a>
-                ). We do not claim SOC 2 or HITRUST certification at this time. We are not a substitute for an AMA CPT license — bundled code sets cover ICD-10, HCPCS, CARC, RARC, taxonomy, and POS; CPT is BYO (customer supplies their licensed copy).
+                ). We do not claim SOC 2 or HITRUST certification. We do not state that a
+                BAA is available. ExactEDI is not a clearinghouse, translator, or cloud service.
               </p>
             </div>
           </div>
