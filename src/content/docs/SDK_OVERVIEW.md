@@ -8,7 +8,7 @@ ExactEDI SDK provides native libraries for processing HIPAA X12 EDI transactions
 
 | Feature | Description |
 |---------|-------------|
-| **Multi-format Support** | 837P/I/D Claims, 835 Remittance, 270/271 Eligibility, 277 Status, 999 Acknowledgment |
+| **Multi-format Support** | 14 X12 transaction types recognized — 837P/I/D, 835, 270/271, 276/277, 277CA, 278, 820, 834, 999, TA1; loop-aware structural validation on 10 |
 | **PHI-Safe Facts** | HIPAA Safe Harbor compliant fact extraction for LLM/analytics |
 | **High Performance** | 200+ MB/s parsing throughput, streaming support for large files |
 | **Memory-based I/O** | Process data from files, memory buffers, or streams |
@@ -17,16 +17,26 @@ ExactEDI SDK provides native libraries for processing HIPAA X12 EDI transactions
 
 ## Supported Transaction Types
 
-| Code | Name | Description |
-|------|------|-------------|
-| **837P** | Professional Claim | Physician and outpatient services |
-| **837I** | Institutional Claim | Hospital inpatient and outpatient |
-| **837D** | Dental Claim | Dental services |
-| **835** | Remittance Advice | Payment/explanation of benefits |
-| **277** | Claim Status | Claim status inquiry response |
-| **999** | Acknowledgment | Implementation acknowledgment |
-| **270** | Eligibility Inquiry | Benefit eligibility and coverage inquiry |
-| **271** | Eligibility Response | Eligibility and benefit information response |
+The `TransactionType` enum recognizes 14 HIPAA X12 transaction types. Ten of
+them also receive Tier-2 loop-aware structural validation — §2.3.1 loop nesting,
+trigger segments, segment placement, and repeat-count caps.
+
+| Code | Name | Loop-aware validation |
+|------|------|-----------------------|
+| **837P** | Professional Claim | Yes |
+| **837I** | Institutional Claim | — |
+| **837D** | Dental Claim | — |
+| **835** | Remittance Advice | Yes |
+| **270** | Eligibility Inquiry | Yes |
+| **271** | Eligibility Response | Yes |
+| **276** | Claim Status Request | Yes |
+| **277** | Claim Status Response | Yes |
+| **277CA** | Claim Acknowledgment | Yes |
+| **278** | Health Care Services Review (Prior Auth) | Yes |
+| **820** | Premium Payment | Yes |
+| **834** | Benefit Enrollment | — |
+| **999** | Implementation Acknowledgment | Yes |
+| **TA1** | Interchange Acknowledgment | — |
 
 ## Quick Start
 

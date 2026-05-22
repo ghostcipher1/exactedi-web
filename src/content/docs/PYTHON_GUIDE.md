@@ -21,6 +21,13 @@ pip install "./exactedi-1.0.0b4-<platform>.whl[pandas]"
 pip install "./exactedi-1.0.0b4-<platform>.whl[all]"
 ```
 
+Verify the install:
+
+```bash
+python -c "import exactedi; print(exactedi.version(), exactedi.license_status())"
+# 1.0.0-beta.4 Trial
+```
+
 ### Source install (1.0.0-beta.3 only)
 
 Pre-built Python wheels are **not** bundled in the beta.3 distribution. Wheel builds are deferred to beta.4 (a CI artifact-pipeline gap, not a Python SDK issue — the binding itself is stable). To use the Python SDK in beta.3, install from source:

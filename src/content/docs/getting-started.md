@@ -21,7 +21,7 @@ System requirements: Python 3.9+, Linux/macOS/Windows, x64 or ARM64.
 ## Step 1 — Install (30 seconds)
 
 ```bash
-pip install ./exactedi-1.0.0b3-cp311-cp311-manylinux_2_17_x86_64.whl[pandas]
+pip install ./exactedi-1.0.0b4-cp311-cp311-manylinux_2_17_x86_64.whl[pandas]
 ```
 
 The exact wheel filename depends on your platform and Python version. The `[pandas]` extra pulls in pandas for the DataFrame walkthrough at the end; drop it if you only need the core SDK.
@@ -33,7 +33,7 @@ python -c "import exactedi; print(exactedi.version(), exactedi.license_status())
 ```
 
 ```
-1.0.0-beta.3 Trial
+1.0.0-beta.4 Trial
 ```
 
 If you see `Trial`, the license auto-discovered your `.lic` file or fell back to the 14-day trial. If you see an error about a missing license, point `EXACTEDI_LICENSE` at your `.lic` file and re-run.
@@ -66,7 +66,7 @@ This is the lowest-level view of the file. Most of the time you won't need it �
 
 ## Step 3 — Validate envelope structure
 
-Before extracting anything, confirm the file is structurally sound. In beta, `validate` covers **SNIP Level 1** (syntax and envelope structure) plus envelope-level **SNIP Level 3** (control-number balancing). HIPAA SNIP 2-4 IG conformance is shipping incrementally — see [validation roadmap](#validation-coverage-beta) below.
+Before extracting anything, confirm the file is structurally sound. As of beta.4, `validate` covers **SNIP Level 1** (syntax and envelope structure), **SNIP Level 2** loop-and-segment structure for ten transaction types (loop nesting, trigger segments, placement, repeat-count caps), and **SNIP Level 3** balancing (envelope control numbers plus 835/837 monetary totals). Element-level IG rules and the higher SNIP levels are shipping incrementally — see [validation roadmap](#validation-coverage-beta) below.
 
 ```bash
 exactedi validate samples/sample_837p.x12
@@ -85,7 +85,7 @@ Warnings: 0
 
 (The CLI prints two `[INFO]` log lines to stderr before the report — `entering trial mode` and `Validating <path>`. Redirect with `2>/dev/null` if you want only the report on stdout.)
 
-What "Valid: Yes" means **today** (beta): the file's syntax is well-formed, all envelopes pair correctly, and control numbers/counts reconcile. It does **not** yet mean the file conforms to the HIPAA 837P implementation guide — that's SNIP 2-4 territory and on the roadmap.
+What "Valid: Yes" means **today** (beta.4): the file's syntax is well-formed, all envelopes pair correctly, control numbers and counts reconcile, monetary totals balance, and — for the ten supported transaction types — the loop structure conforms to its implementation guide (loop nesting, triggers, segment placement, repeat caps). It does **not** yet verify every element-level IG rule — valid code lists, situational element dependencies — which remain on the roadmap.
 
 What it looks like when something is broken — try the bundled malformed sample:
 
@@ -253,11 +253,12 @@ So you know what you have today vs. what's landing through GA:
 
 | SNIP Level | Coverage | Status |
 |---|---|---|
-| **1 — EDI syntax / structure** | Full | Shipping (beta) |
-| **3 — Envelope balancing** | Control numbers, segment counts | Shipping (beta) |
-| **3 — Claim/monetary balancing** | CLP totals vs. line sums, transaction totals | GA target |
-| **2 — HIPAA IG conformance** | 837P/I/D and 835 | GA target |
-| **2 — HIPAA IG conformance** | 270/271, 276/277, 278, 820, 834, 999 | Partial GA, full v1.x |
+| **1 — EDI syntax / structure** | Segment/element syntax, envelope structure | Shipping |
+| **2 — IG loop & segment structure** | Loop nesting, trigger segments, segment placement, repeat-count caps, required-segment checks — 10 transaction types (837P, 835, 270, 271, 276, 277, 277CA, 278, 820, 999) | Shipping (beta.4) |
+| **2 — IG element-level rules** | Element usage, valid code lists, syntax rules from segment-detail pages | GA target |
+| **2 — Remaining transaction types** | 837I, 837D, 834 loop structure | Post-beta.4 |
+| **3 — Envelope balancing** | Control numbers, segment & transaction counts | Shipping |
+| **3 — Claim / monetary balancing** | 835 BPR02 vs. CLP04 sums, 837 CLM02 vs. SV1 line sums | Shipping (beta.4) |
 | **4 — Inter-segment situational** | Conditional element rules | GA target (837/835 first) |
 | **5 — External code sets** | ICD-10, HCPCS, CARC, RARC, POS, taxonomy bundled; CPT BYO | Partial GA, full v1.x |
 | **6 — Product-type variance** | 837P vs. I vs. D, etc. | Partial GA, full v1.x |
@@ -269,6 +270,7 @@ The diagnostic shape on `result.validation` is forward-compatible — new SNIP l
 
 ## What to read next
 
+- **[RELEASE_NOTES.md](RELEASE_NOTES.md)** — beta.4 release highlights and upgrade notes
 - **[PYTHON_GUIDE.md](PYTHON_GUIDE.md)** — full Python SDK reference: async, streaming, options, error handling
 - **[X12 mapping reference](x12-mapping/index.md)** *(in progress)* — English-to-X12 vocabulary: "patient NPI" → "NM109 in Loop 2010BA where NM101=IL"
 - **[INTEGRATION_GUIDE.md](INTEGRATION_GUIDE.md)** — consuming JSONL/JSON output in downstream warehouses and pipelines

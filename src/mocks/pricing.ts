@@ -51,7 +51,7 @@ export const capabilityRows: CapabilityRow[] = [
     values: [true, true, true, true],
   },
   {
-    label: "HIPAA TR3 validation (SNIP Type 2 — see roadmap)",
+    label: "Loop & segment validation (SNIP Type 2 — see roadmap)",
     values: [false, true, true, true],
     hasRoadmapLink: true,
   },

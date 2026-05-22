@@ -72,10 +72,16 @@ typedef enum exactedi_transaction_type {
     EXACTEDI_TX_837I = 2,   // Institutional claim
     EXACTEDI_TX_837D = 3,   // Dental claim
     EXACTEDI_TX_835 = 4,    // Remittance advice
-    EXACTEDI_TX_277 = 5,    // Claim status
-    EXACTEDI_TX_999 = 6,    // Acknowledgment
+    EXACTEDI_TX_277 = 5,    // Claim status response
+    EXACTEDI_TX_999 = 6,    // Implementation acknowledgment
     EXACTEDI_TX_270 = 7,    // Eligibility inquiry
-    EXACTEDI_TX_271 = 8     // Eligibility response
+    EXACTEDI_TX_271 = 8,    // Eligibility response
+    EXACTEDI_TX_276 = 9,    // Claim status request
+    EXACTEDI_TX_277CA = 10, // Claim acknowledgment (277CA)
+    EXACTEDI_TX_278 = 11,   // Health care services review (prior auth)
+    EXACTEDI_TX_820 = 12,   // Premium payment
+    EXACTEDI_TX_834 = 13,   // Benefit enrollment
+    EXACTEDI_TX_TA1 = 14    // Interchange acknowledgment
 } exactedi_transaction_type_t;
 ```
 

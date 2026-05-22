@@ -45,8 +45,8 @@ Ask vendors: **which SNIP levels are implemented today**, not “on the roadmap,
 
 ExactEDI publishes SNIP coverage explicitly because beta customers need to know what they have **this week**:
 
-- **Beta today:** SNIP 1 + envelope balancing (ISA/IEA, GS/GE, ST/SE).
-- **Shipping through GA:** SNIP 2–4 for 837/835 and expanding transaction coverage.
+- **Beta.4 today:** SNIP 1 + loop-and-segment structure on ten transaction types + envelope and monetary balancing (Types 1–3).
+- **Shipping through GA:** element-level IG rules (SNIP 2) and situational rules (SNIP 4) for 837/835 and expanding transaction coverage.
 - **v1.x marquee:** declarative companion-guide enforcement (SNIP 7) — trading-partner rules in library-side YAML, not one-off customer forks.
 
 See the live matrix on our [validation roadmap](/roadmap).

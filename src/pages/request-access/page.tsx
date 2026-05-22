@@ -247,7 +247,7 @@ export default function RequestAccessPage() {
                   <option value="audit_compliance">Audit / compliance</option>
                 </select>
                 <p className="mt-1.5 text-xs text-stedi-gray-text">
-                  Parse/throughput, facts extraction, and format conversion are beta-fit. Validation and audit are wait-listed until SNIP 2-4 lands.
+                  Parse/throughput, validation (SNIP 1–3), facts extraction, and format conversion are beta-fit. Element-level IG validation and audit workflows expand through GA.
                 </p>
               </div>
 

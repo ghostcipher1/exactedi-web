@@ -10,9 +10,9 @@ export default function RoadmapTeaser() {
               Validation roadmap
             </h2>
             <p className="text-sm text-stedi-gray-text max-w-2xl leading-relaxed">
-              Available now: SNIP Type 1, 837 and 835 support, PHI-safe extraction, CLI.
-              In progress: HIPAA TR3 (SNIP Types 2–4). Planned: external code sets (SNIP Type 5)
-              and X12 generation.
+              Shipping in beta.4: SNIP Types 1–3 (structural, loop structure on ten
+              transaction types, monetary balancing), PHI-safe extraction, CLI. GA target:
+              element-level IG rules. Planned: external code sets (SNIP Type 5) and X12 generation.
             </p>
           </div>
           <a

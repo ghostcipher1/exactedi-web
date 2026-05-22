@@ -55,8 +55,9 @@ export default function CompliancePanel() {
             <div>
               <h4 className="text-sm font-semibold text-stedi-dark-text mb-1">What we do not claim</h4>
               <p className="text-xs text-stedi-gray-text leading-relaxed">
-                Validation today covers SNIP Type 1 (structural / envelope integrity).
-                HIPAA TR3 validation is in progress (see{" "}
+                Beta.4 ships SNIP Types 1–3: structural integrity, loop-and-segment
+                structure on ten transaction types, and envelope/monetary balancing.
+                Element-level IG rules remain on the roadmap (see{" "}
                 <a href="/roadmap" className="text-stedi-green hover:underline">roadmap</a>
                 ). We do not claim SOC 2 or HITRUST certification. We do not state that a
                 BAA is available. ExactEDI is not a clearinghouse, translator, or cloud service.

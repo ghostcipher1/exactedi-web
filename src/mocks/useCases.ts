@@ -81,7 +81,7 @@ export const useCases: UseCase[] = [
       {
         title: "Trading-partner rules (SNIP 7 roadmap)",
         description:
-          "Declarative companion-guide enforcement is on the roadmap; today, Levels 1–6 validation ships with byte-level error reporting.",
+          "Declarative companion-guide enforcement is on the roadmap; today, SNIP Types 1–3 ship with byte-level error reporting across ten transaction types.",
       },
       {
         title: "Deterministic performance",

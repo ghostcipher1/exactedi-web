@@ -27,6 +27,15 @@ export const devDocPages: DevDocPage[] = [
     navLabel: "Installation",
   },
   {
+    id: "release-notes",
+    path: "/dev-docs/release-notes",
+    title: "Release Notes",
+    description:
+      "Engine release history — beta.4 validation expansion, .NET async API, and packaging updates.",
+    file: "RELEASE_NOTES.md",
+    navLabel: "Release Notes",
+  },
+  {
     id: "python",
     path: "/dev-docs/python",
     title: "Python SDK",
@@ -169,7 +178,7 @@ export interface DevDocNavGroup {
 export const devDocNavDropdownGroups: DevDocNavGroup[] = [
   {
     label: "Start here",
-    pageIds: ["getting-started", "installation"],
+    pageIds: ["getting-started", "installation", "release-notes"],
   },
   {
     label: "SDKs",
@@ -191,7 +200,7 @@ export const devDocNavDropdownGroups: DevDocNavGroup[] = [
 export const devDocSidebarGroups: DevDocNavGroup[] = [
   {
     label: "Start here",
-    pageIds: ["getting-started", "installation"],
+    pageIds: ["getting-started", "installation", "release-notes"],
   },
   {
     label: "Language SDKs",

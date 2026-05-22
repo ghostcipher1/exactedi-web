@@ -47,7 +47,7 @@ export default function Home() {
     <>
       <SEO
         title="ExactEDI — Catch malformed claims before a payer does"
-        description="ExactEDI parses and validates 837 claims and 835 remittances against X12 and HIPAA TR3 rules — entirely on your infrastructure, with zero network calls."
+        description="ExactEDI parses and validates 837 claims and 835 remittances with SNIP Types 1–3 — structural, loop, and monetary checks — entirely on your infrastructure, with zero network calls."
         canonicalPath="/"
         keywords="ExactEDI, X12 EDI, HIPAA EDI, 837 claims, 835 remittance, EDI engine, developer tools, on-premises"
         jsonLd={homeJsonLd}

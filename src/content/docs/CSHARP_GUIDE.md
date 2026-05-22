@@ -133,6 +133,45 @@ using var result = analyzer.AnalyzeFile("claims.edi");
 | `AnalyzeMemory(ReadOnlySpan<byte>)` | Analyze span |
 | `ValidateFile(path)` | Validate only |
 | `AnalyzeFileStreaming(path, callback)` | Stream large files |
+| `AnalyzeFileAsync(path, ct?)` | Analyze file asynchronously |
+| `AnalyzeStringAsync(data, ct?)` | Analyze string asynchronously |
+| `AnalyzeMemoryAsync(bytes, ct?)` | Analyze byte array asynchronously |
+| `ValidateFileAsync(path, ct?)` | Validate only, asynchronously |
+| `AnalyzeFileStreamingAsync(path, callback, ct?)` | Stream large files asynchronously |
+
+### Async API
+
+Every analysis operation on `Analyzer` has an async counterpart that returns
+`Task<T>` and accepts a `CancellationToken`. The async methods offload the
+synchronous native parse to a thread-pool thread so the calling thread — a UI
+thread, an ASP.NET request thread — is not blocked for the duration of a
+parse. They perform **no network I/O** and produce results identical to the
+synchronous methods.
+
+```csharp
+using var analyzer = new Analyzer();
+
+// Async file analysis
+using var result = await analyzer.AnalyzeFileAsync("claims.edi");
+
+// With cancellation (e.g. a timeout, or HttpContext.RequestAborted)
+using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+using var result2 = await analyzer.AnalyzeFileAsync("claims.edi", cts.Token);
+
+// Every operation has an async form
+using var r3 = await analyzer.AnalyzeStringAsync(ediContent);
+using var r4 = await analyzer.AnalyzeMemoryAsync(ediBytes);
+var vstats = await analyzer.ValidateFileAsync("claims.edi");
+var sstats = await analyzer.AnalyzeFileStreamingAsync("large.edi",
+    (json, type) => true);
+```
+
+For the one-shot methods, cancellation is honored before the native parse
+begins. For `AnalyzeFileStreamingAsync`, cancellation is cooperative and
+honored mid-stream — the stream stops at the next transaction boundary.
+
+The native engine itself is synchronous and deterministic; these methods are
+thread-offload wrappers, not an asynchronous parser.
 
 ---
 
@@ -245,6 +284,30 @@ foreach (var tx in result.Transactions)
 
 ---
 
+## Supported Transactions
+
+The `TransactionType` enum reports all of the following; ten also receive
+loop-aware structural validation.
+
+| Type  | Description | Loop-aware validation |
+|-------|-------------|-----------------------|
+| 837P  | Professional claim | Yes |
+| 837I  | Institutional claim | — |
+| 837D  | Dental claim | — |
+| 835   | Remittance advice | Yes |
+| 270   | Eligibility inquiry | Yes |
+| 271   | Eligibility response | Yes |
+| 276   | Claim status request | Yes |
+| 277   | Claim status response | Yes |
+| 277CA | Claim acknowledgment | Yes |
+| 278   | Health care services review (prior authorization) | Yes |
+| 820   | Premium payment | Yes |
+| 834   | Benefit enrollment | — |
+| 999   | Implementation acknowledgment | Yes |
+| TA1   | Interchange acknowledgment | — |
+
+---
+
 ## TransactionType Enum
 
 ```csharp
@@ -256,7 +319,15 @@ public enum TransactionType
     Claim837D = 3,
     Remittance835 = 4,
     ClaimStatus277 = 5,
-    Acknowledgment999 = 6
+    Acknowledgment999 = 6,
+    Eligibility270 = 7,
+    EligibilityResponse271 = 8,
+    ClaimStatusRequest276 = 9,
+    ClaimAcknowledgment277CA = 10,
+    PriorAuthorization278 = 11,
+    PremiumPayment820 = 12,
+    BenefitEnrollment834 = 13,
+    InterchangeAckTA1 = 14
 }
 ```
 

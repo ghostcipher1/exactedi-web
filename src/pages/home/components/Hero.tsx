@@ -20,7 +20,7 @@ export default function Hero() {
           </h1>
           <p className="mt-4 md:mt-6 text-lg md:text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
             ExactEDI is a high-performance library that parses and validates 837 claims
-            and 835 remittances against X12 and HIPAA TR3 rules — entirely on your
+            and 835 remittances with SNIP-aware structural and monetary validation — entirely on your
             infrastructure, with zero network calls.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">

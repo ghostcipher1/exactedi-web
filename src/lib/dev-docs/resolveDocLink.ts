@@ -12,6 +12,7 @@ for (const page of devDocPages) {
 const linkAliases: Record<string, string> = {
   "getting-started.md": "/dev-docs",
   "INSTALLATION.md": "/dev-docs/installation",
+  "RELEASE_NOTES.md": "/dev-docs/release-notes",
   "PYTHON_GUIDE.md": "/dev-docs/python",
   "CSHARP_GUIDE.md": "/dev-docs/csharp",
   "SDK_OVERVIEW.md": "/dev-docs/sdk",

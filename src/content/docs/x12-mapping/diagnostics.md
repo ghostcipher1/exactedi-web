@@ -1,6 +1,7 @@
 # Validation Diagnostics — English Reference
 
-This document explains every diagnostic the validation engine can emit. Each
+This document explains every diagnostic the validation engine can emit — **35
+codes** in total. Each
 code is described twice — once in plain English (for novice readers and
 business stakeholders), and once in X12 detail (for EDI engineers). Severity
 is one of `Error`, `Warning`, or `Info`.

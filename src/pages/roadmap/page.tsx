@@ -31,7 +31,7 @@ export default function RoadmapPage() {
     <>
       <SEO
         title="ExactEDI SNIP Validation Roadmap — X12 HIPAA EDI Compliance"
-        description="SNIP validation coverage: Type 1 available in beta today. HIPAA TR3 (Types 2–4) in progress. External code sets and X12 generation planned."
+        description="SNIP validation coverage: Types 1–3 structural, loop, and monetary balancing shipping in beta.4. Element-level IG rules and Types 4–7 on the roadmap."
         canonicalPath="/roadmap"
         keywords="ExactEDI roadmap, SNIP validation, X12 EDI roadmap, HIPAA EDI validation"
         jsonLd={roadmapJsonLd}
@@ -48,9 +48,10 @@ export default function RoadmapPage() {
               Validation Roadmap
             </h1>
             <p className="text-base md:text-lg text-gray-400 max-w-3xl leading-relaxed">
-              Available now: SNIP Type 1, 837 and 835, PHI-safe extraction, Python and .NET
-              bindings, CLI. In progress: HIPAA TR3 (SNIP Types 2–4). Planned: external code
-              sets (SNIP Type 5) and X12 generation.
+              Shipping in beta.4: SNIP Type 1, loop-and-segment structure (Type 2) on ten
+              transaction types, envelope and monetary balancing (Type 3), PHI-safe extraction,
+              Python and .NET bindings, CLI. GA target: element-level IG rules (Type 2) and
+              situational rules (Type 4). Planned: external code sets (Type 5) and X12 generation.
             </p>
           </div>
         </section>
@@ -126,9 +127,13 @@ export default function RoadmapPage() {
             </div>
 
             <div className="mt-6 text-xs text-stedi-gray-text">
-              Validation today covers X12 structural and envelope integrity (SNIP Type 1).
-              HIPAA TR3 validation is in progress. ExactEDI is beta software — see release
-              notes as new SNIP levels ship.
+              Beta.4 ships SNIP Types 1–3 for structural, loop, and monetary checks on ten
+              transaction types. Element-level IG rules and higher SNIP levels remain on the
+              roadmap. ExactEDI is beta software — see{" "}
+              <a href="/dev-docs/release-notes" className="text-stedi-green hover:underline">
+                release notes
+              </a>{" "}
+              as coverage expands.
             </div>
           </div>
         </section>
@@ -143,10 +148,15 @@ export default function RoadmapPage() {
               {supportedTransactions.map((tx) => (
                 <div
                   key={tx.code}
-                  className="flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-stedi-gray-border"
+                  className="flex flex-col gap-1 px-4 py-3 bg-white rounded-lg border border-stedi-gray-border"
                 >
-                  <span className="font-mono font-semibold text-stedi-dark-text">{tx.code}</span>
-                  <span className="text-sm text-stedi-gray-text">{tx.name}</span>
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono font-semibold text-stedi-dark-text">{tx.code}</span>
+                    <span className="text-sm text-stedi-gray-text">{tx.name}</span>
+                  </div>
+                  {tx.loopValidation && (
+                    <span className="text-xs text-stedi-green">Loop-aware validation</span>
+                  )}
                 </div>
               ))}
             </div>
