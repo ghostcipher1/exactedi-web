@@ -14,8 +14,13 @@ function injectAnalyticsHtml(): Plugin {
     transformIndexHtml(html) {
       let out = html.replaceAll("__GTM_ID__", gtmId);
       if (!useGtm) {
+        // Remove head + body GTM blocks separately (a single regex ate the whole <head>)
         out = out.replace(
-          /<!-- Google Tag Manager -->[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->\n?/,
+          /<!-- Google Tag Manager -->\s*<script>[\s\S]*?<\/script>\s*<!-- End Google Tag Manager -->\s*/,
+          ""
+        );
+        out = out.replace(
+          /<!-- Google Tag Manager \(noscript\) -->[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->\s*/,
           ""
         );
       }
