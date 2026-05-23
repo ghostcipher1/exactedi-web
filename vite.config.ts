@@ -6,12 +6,20 @@ import AutoImport from "unplugin-auto-import/vite";
 const base = process.env.BASE_PATH || "/";
 const isPreview = process.env.IS_PREVIEW ? true : false;
 const gtmId = (process.env.VITE_GTM_ID || "GTM-522ZBZWZ").trim();
+const useGtm = process.env.VITE_USE_GTM !== "false";
 
-function injectGtmId(): Plugin {
+function injectAnalyticsHtml(): Plugin {
   return {
-    name: "inject-gtm-id",
+    name: "inject-analytics-html",
     transformIndexHtml(html) {
-      return html.replaceAll("__GTM_ID__", gtmId);
+      let out = html.replaceAll("__GTM_ID__", gtmId);
+      if (!useGtm) {
+        out = out.replace(
+          /<!-- Google Tag Manager -->[\s\S]*?<!-- End Google Tag Manager \(noscript\) -->\n?/,
+          ""
+        );
+      }
+      return out;
     },
   };
 }
@@ -27,7 +35,7 @@ export default defineConfig({
     VITE_SITE_URL: JSON.stringify(process.env.VITE_SITE_URL || "https://exactedi.com"),
   },
   plugins: [
-    injectGtmId(),
+    injectAnalyticsHtml(),
     react(),
     AutoImport({
       imports: [

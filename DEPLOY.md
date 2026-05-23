@@ -1,5 +1,17 @@
 # Deploy ExactEDI marketing site to Vercel
 
+## Git commit author (Vercel / GitHub)
+
+Commits should be authored as **Trent** `<trent.adams0201@gmail.com>`. Before committing:
+
+```bash
+source scripts/git-author-env.sh
+git commit -m "Your message"
+git push origin master
+```
+
+(Vercel deploys from the GitHub push; the email above should match your GitHub account for consistent attribution.)
+
 ## 1. Push this repo to GitHub
 
 ```bash
@@ -40,12 +52,11 @@ Update DNS at your registrar (Vercel shows exact records):
 
 Remove or repoint old Readdy DNS when ready.
 
-## 5. Analytics (GTM + GA4)
+## 5. Analytics
 
-- **GTM** loads from `index.html` (default `GTM-522ZBZWZ`; override with `VITE_GTM_ID`).
-- **GA4** is configured inside GTM — step-by-step: **[ANALYTICS_SETUP.md](./ANALYTICS_SETUP.md)**.
-- SPA `page_view` + conversion events: `page_view`, `view_pricing`, `view_product`, `view_dev_docs`, `view_roadmap`, `view_request_access`, `beta_form_submit`, `cta_click`.
-- After deploy: Tag Assistant on `www.exactedi.com` → confirm GA4 Configuration + `page_view` on navigation.
+- **Recommended:** set `VITE_GA4_MEASUREMENT_ID` + `VITE_USE_GTM=false` — see **[ANALYTICS_SETUP.md](./ANALYTICS_SETUP.md) Option A** (no Tag Manager).
+- **Optional:** GTM + GA4 tags in Tag Manager — Option B in the same doc.
+- After deploy: GA4 **Realtime** report while browsing the site.
 
 ## 6. Google Search Console
 

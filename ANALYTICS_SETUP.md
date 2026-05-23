@@ -1,138 +1,105 @@
-# Google Analytics (GA4) via Google Tag Manager
+# Google Analytics setup for ExactEDI
 
-ExactEDI loads **Google Tag Manager** from `index.html` and pushes SPA `page_view` and conversion events from the React app. **GA4 is configured inside GTM**, not in this repository.
-
-If GTM shows **“Tag stopped sending data”**, the container snippet is usually fine — the **GA4 tag is missing, unpublished, or uses the wrong Measurement ID**. Follow the steps below.
+You have **two options**. If GTM confused you, use **Option A** (about 5 minutes, no Tag Manager).
 
 ---
 
-## 1. Confirm the GTM container ID
+## Option A — Direct GA4 (recommended, no GTM)
 
-1. Open [Google Tag Manager](https://tagmanager.google.com/) → container **www.exactedi.com**.
-2. **Admin** → **Install Google Tag Manager** → copy the ID (`GTM-XXXXXXX`).
-3. It must match what the site loads:
-   - Default in repo: `GTM-522ZBZWZ`
-   - Override in Vercel: **`VITE_GTM_ID`** = your `GTM-XXXXXXX` (then redeploy).
+The site can send analytics **directly to Google Analytics** once you add one ID. No tags, triggers, or publishing in Tag Manager.
 
-**Verify on the live site**
+### Step 1 — Create a GA4 property (you must do this in Google)
 
-1. Visit `https://www.exactedi.com/`
-2. Open DevTools → **Network** → filter `gtm.js` — request should be `.../gtm.js?id=GTM-XXXXXXX`.
-3. Or install [Tag Assistant](https://tagassistant.google.com/) and confirm the container is **Connected**.
+1. Open [analytics.google.com](https://analytics.google.com/) and sign in.
+2. Click **Admin** (gear, bottom left).
+3. **Create** → **Property** → name it `ExactEDI` → follow the prompts.
+4. Under the property, **Data collection** → **Data streams** → **Add stream** → **Web**.
+5. Website URL: `https://www.exactedi.com` → Create stream.
+6. Copy the **Measurement ID** — it looks like `G-XXXXXXXXXX`.
 
----
+### Step 2 — Add the ID to your environment
 
-## 2. Create a GA4 property (if you do not have one)
+**Local** (`.env` in this project):
 
-1. [Google Analytics](https://analytics.google.com/) → **Admin** → **Create property**.
-2. Name: `ExactEDI` (or your preference).
-3. Set **Reporting time zone** and **Currency**.
-4. Create a **Web** data stream for `https://www.exactedi.com` (add `https://exactedi.com` as well if you use the apex domain).
-5. Copy the **Measurement ID** (`G-XXXXXXXXXX`).
+```env
+VITE_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+VITE_USE_GTM=false
+```
 
----
+Replace `G-XXXXXXXXXX` with your real ID.
 
-## 3. Add GA4 tags in GTM
+**Production** (Vercel):
 
-### Tag A — GA4 Configuration (base tag)
+1. Project → **Settings** → **Environment Variables**
+2. Add `VITE_GA4_MEASUREMENT_ID` = `G-XXXXXXXXXX`
+3. Add `VITE_USE_GTM` = `false`
+4. **Redeploy** the site (Deployments → … → Redeploy).
 
-| Field | Value |
-|--------|--------|
-| Tag type | **Google Tag** (or *Google Analytics: GA4 Configuration*) |
-| Tag ID / Measurement ID | Your `G-XXXXXXXXXX` |
-| Trigger | **Initialization – All Pages** (or *All Pages*) |
+### Step 3 — Verify it works
 
-This loads GA4 on every page load.
+1. Open [analytics.google.com](https://analytics.google.com/) → your property → **Reports** → **Realtime**.
+2. In another tab, visit `https://www.exactedi.com/` and click a few pages.
+3. Within ~30 seconds you should see yourself in Realtime.
 
-### Tag B — SPA page views (required for React Router)
-
-The app pushes a custom `page_view` event on every route change (`AnalyticsListener`).
-
-| Field | Value |
-|--------|--------|
-| Tag type | **Google Analytics: GA4 Event** |
-| Configuration tag | Tag A (above) |
-| Event name | `page_view` |
-| Event parameters | See table below |
-| Trigger | **Custom Event** → Event name = `page_view` |
-
-**Event parameters** (create Data Layer Variables first, section 4):
-
-| Parameter name | Data Layer Variable |
-|----------------|---------------------|
-| `page_location` | `DLV - page_location` |
-| `page_path` | `DLV - page_path` |
-| `page_title` | `DLV - page_title` |
-
-### Tag C — Conversion events (optional)
-
-Create **GA4 Event** tags + **Custom Event** triggers for funnel reporting:
-
-| Site event | When it fires |
-|------------|----------------|
-| `view_pricing` | `/pricing` |
-| `view_roadmap` | `/roadmap` |
-| `view_dev_docs` | Any `/dev-docs/*` page |
-| `view_request_access` | `/request-access` |
-| `view_product` | `/product` |
-| `beta_form_submit` | Beta access form success |
-| `cta_click` | Use-case CTAs (`cta_id` in dataLayer) |
-
-Use the event name as the GA4 event name, or map to recommended events in the tag (e.g. `generate_lead` for `beta_form_submit`).
+That’s it. The codebase handles page views on every route change automatically.
 
 ---
 
-## 4. Data Layer Variables (for Tag B)
+## Option B — Google Tag Manager + GA4 (advanced)
 
-In GTM → **Variables** → **User-Defined Variables** → **New**:
+Use this only if you already rely on GTM for other marketing tags.
 
-| Name | Type | Data Layer Variable Name |
-|------|------|---------------------------|
-| DLV - page_location | Data Layer Variable | `page_location` |
-| DLV - page_path | Data Layer Variable | `page_path` |
-| DLV - page_title | Data Layer Variable | `page_title` |
+1. Keep `VITE_USE_GTM` unset (or `true`) and `VITE_GTM_ID=GTM-522ZBZWZ` (or your container ID).
+2. In [tagmanager.google.com](https://tagmanager.google.com/), add:
+   - **Google Tag** with your `G-` Measurement ID → trigger **Initialization – All Pages**
+   - **GA4 Event** `page_view` → trigger **Custom Event** `page_view`
+3. Create Data Layer Variables: `page_location`, `page_path`, `page_title`.
+4. **Publish** the container.
 
----
-
-## 5. Publish and test
-
-1. **Submit** → **Publish** the container version.
-2. Open [Tag Assistant](https://tagassistant.google.com/) → connect to `www.exactedi.com`.
-3. Navigate to `/pricing`, `/product`, `/dev-docs` — you should see:
-   - Container loaded
-   - GA4 Configuration fired
-   - `page_view` events with `page_path` changing
-4. In GA4 → **Reports** → **Realtime** — confirm active users within a few minutes.
+**Do not use Option A and Option B together** with the same `G-` ID — that can double-count visits. Pick one.
 
 ---
 
-## 6. Environment variables (Vercel)
+## Environment variables
 
 | Variable | Purpose |
 |----------|---------|
-| `VITE_GTM_ID` | GTM container ID (if not `GTM-522ZBZWZ`) |
-| `VITE_SITE_URL` | Canonical origin (`https://exactedi.com`) |
-| `VITE_ENABLE_ANALYTICS` | Set to `false` on preview deployments to disable dataLayer pushes |
-
-Redeploy after changing `VITE_GTM_ID`.
+| `VITE_GA4_MEASUREMENT_ID` | **Option A:** your `G-XXXXXXXXXX` ID |
+| `VITE_USE_GTM` | Set `false` to disable GTM snippet (recommended with Option A) |
+| `VITE_GTM_ID` | **Option B only:** `GTM-XXXXXXX` from Tag Manager |
+| `VITE_ENABLE_ANALYTICS` | Set `false` to disable all tracking locally |
+| `VITE_SITE_URL` | Canonical site URL |
 
 ---
 
-## 7. Troubleshooting
+## Events tracked automatically
 
-| Symptom | Likely cause |
-|---------|----------------|
-| GTM urgent: tag not detected 48h | GA4 tag not published, or wrong `G-` ID |
-| GTM loads but no GA4 hits | Missing Tag B (SPA `page_view`) |
-| Hits on first page only | Same — route changes need Tag B |
-| Wrong container | Set `VITE_GTM_ID` to match GTM install snippet |
-| `www` vs apex split | Add both URLs in GA4 data stream |
+| Event | When |
+|-------|------|
+| `page_view` | Every page / route change |
+| `view_pricing` | `/pricing` |
+| `view_roadmap` | `/roadmap` |
+| `view_product` | `/product` |
+| `view_dev_docs` | `/dev-docs/*` |
+| `view_request_access` | `/request-access` |
+| `beta_form_submit` | Beta form success |
+| `cta_click` | Use-case CTAs |
+
+---
+
+## Troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| Nothing in Realtime | Wrong `G-` ID, or Vercel not redeployed after env change |
+| Still see GTM errors | Set `VITE_USE_GTM=false` and redeploy |
+| Double counts | Use only Option A **or** Option B, not both with same property |
 | Local dev noise | `VITE_ENABLE_ANALYTICS=false` in `.env.local` |
 
 ---
 
-## Code reference
+## What we cannot do for you
 
-- GTM snippet: `index.html` (placeholder `__GTM_ID__` replaced at build)
-- SPA tracking: `src/components/AnalyticsListener.tsx`
-- Events API: `src/lib/analytics.ts`
+Google Analytics and Tag Manager require **your** Google login. Nobody else can create the property or see your data without access to your account.
+
+If you paste your **Measurement ID** (`G-…`) here (not a secret — it’s visible in browser source), we can confirm your `.env` / Vercel entries are correct. **Do not** share Google passwords or service-account keys.
