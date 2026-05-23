@@ -1,11 +1,14 @@
 User-agent: *
 Disallow:
+
 Allow: /
+Allow: /product
 Allow: /pricing
 Allow: /roadmap
 Allow: /security
-Allow: /dev-docs
+Allow: /dev-docs/
 Allow: /request-access
 Allow: /use-cases/
 Allow: /blog
+
 Sitemap: https://exactedi.com/sitemap.xml

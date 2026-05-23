@@ -3,10 +3,11 @@ import { useCases } from "@/mocks/useCases";
 
 const footerLinks = {
   Product: [
-    { label: "Parsing & Validation", href: "#" },
-    { label: "Facts Extraction", href: "#" },
-    { label: "Performance", href: "#" },
-    { label: "SDKs", href: "#" },
+    { label: "Overview", href: "/product" },
+    { label: "Parsing & Validation", href: "/product#parsing-validation" },
+    { label: "Facts Extraction", href: "/product#facts-extraction" },
+    { label: "Performance", href: "/product#performance" },
+    { label: "SDKs", href: "/product#sdks" },
     { label: "Roadmap", href: "/roadmap" },
     { label: "Pricing", href: "/pricing" },
   ],

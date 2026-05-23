@@ -5,6 +5,7 @@ import RoadmapPage from "../pages/roadmap/page";
 import RequestAccessPage from "../pages/request-access/page";
 import PricingPage from "../pages/pricing/page";
 import SecurityPage from "../pages/security/page";
+import ProductPage from "../pages/product/page";
 import DevDocsLayout from "../pages/dev-docs/components/DevDocsLayout";
 import DocPage from "../pages/dev-docs/DocPage";
 import BlogPage from "../pages/blog/page";
@@ -34,6 +35,10 @@ const routes: RouteObject[] = [
   {
     path: "/request-access",
     element: <RequestAccessPage />,
+  },
+  {
+    path: "/product",
+    element: <ProductPage />,
   },
   {
     path: "/pricing",

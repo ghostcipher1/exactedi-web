@@ -1,6 +1,6 @@
 const capabilities = [
   { label: "Parse", desc: "837 claims and 835 remittances to structured JSON / JSONL" },
-  { label: "Validate", desc: "X12 structural and envelope integrity (SNIP Type 1 today)" },
+  { label: "Validate", desc: "SNIP Types 1–3: structural, loop structure, and monetary balancing (beta.4)" },
   { label: "Extract", desc: "PHI-safe facts — HIPAA Safe Harbor compliant output" },
   { label: "Stream", desc: "1 GB files in under one minute; multi-gigabyte files on standard hardware" },
   { label: "CLI", desc: "Pipe output into ETL and pipeline workflows" },

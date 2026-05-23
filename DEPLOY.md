@@ -59,6 +59,9 @@ Product truth source: `../exactedi/WEBSITE_BRIEF.md` and `../exactedi/benchmarks
 
 ## 8. Test after deploy
 
+- [ ] `/product` loads
+- [ ] `/robots.txt` returns plain text (not the SPA HTML shell)
+- [ ] `/sitemap.xml` returns XML with `/product` and dev-doc URLs
 - [ ] `/use-cases/payers` loads
 - [ ] `/blog` and both cornerstone posts load
 - [ ] Beta form submits (check Resend inbox)

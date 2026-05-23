@@ -26,7 +26,7 @@ type NavItem =
   | { label: string; groups: typeof devDocNavDropdownGroups };
 
 const navLinks: NavItem[] = [
-  { label: "Product", href: "#" },
+  { label: "Product", href: "/product" },
   { label: "Roadmap", href: "/roadmap" },
   { label: "Pricing", href: "/pricing" },
   { label: "Blog", href: "/blog" },
