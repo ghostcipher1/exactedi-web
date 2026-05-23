@@ -40,11 +40,12 @@ Update DNS at your registrar (Vercel shows exact records):
 
 Remove or repoint old Readdy DNS when ready.
 
-## 5. Analytics (already in code)
+## 5. Analytics (GTM + GA4)
 
-- **GTM** container `GTM-522ZBZWZ` is in `index.html`.
-- Configure **GA4** inside GTM (not in this repo).
-- Custom events pushed to `dataLayer`: `page_view`, `view_pricing`, `view_dev_docs`, `view_roadmap`, `view_request_access`, `beta_form_submit`, `cta_click`.
+- **GTM** loads from `index.html` (default `GTM-522ZBZWZ`; override with `VITE_GTM_ID`).
+- **GA4** is configured inside GTM — step-by-step: **[ANALYTICS_SETUP.md](./ANALYTICS_SETUP.md)**.
+- SPA `page_view` + conversion events: `page_view`, `view_pricing`, `view_product`, `view_dev_docs`, `view_roadmap`, `view_request_access`, `beta_form_submit`, `cta_click`.
+- After deploy: Tag Assistant on `www.exactedi.com` → confirm GA4 Configuration + `page_view` on navigation.
 
 ## 6. Google Search Console
 

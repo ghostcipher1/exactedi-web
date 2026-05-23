@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import { useConversionPageView } from "@/hooks/useConversionPageView";
 import Navbar from "@/pages/home/components/Navbar";
 import Footer from "@/pages/home/components/Footer";
 
@@ -62,6 +63,8 @@ const capabilities = [
 ];
 
 export default function ProductPage() {
+  useConversionPageView("view_product");
+
   return (
     <>
       <SEO

@@ -1,12 +1,21 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 import AutoImport from "unplugin-auto-import/vite";
-// import { readdyJsxRuntimeProxyPlugin } from "./vite.jsx-runtime-proxy";
 
 const base = process.env.BASE_PATH || "/";
 const isPreview = process.env.IS_PREVIEW ? true : false;
-//const proxyPlugins = isPreview ? [readdyJsxRuntimeProxyPlugin()] : [];
+const gtmId = (process.env.VITE_GTM_ID || "GTM-522ZBZWZ").trim();
+
+function injectGtmId(): Plugin {
+  return {
+    name: "inject-gtm-id",
+    transformIndexHtml(html) {
+      return html.replaceAll("__GTM_ID__", gtmId);
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   define: {
@@ -18,7 +27,7 @@ export default defineConfig({
     VITE_SITE_URL: JSON.stringify(process.env.VITE_SITE_URL || "https://exactedi.com"),
   },
   plugins: [
-    // ...proxyPlugins,
+    injectGtmId(),
     react(),
     AutoImport({
       imports: [
@@ -62,7 +71,6 @@ export default defineConfig({
             "Outlet",
           ],
         },
-        // React i18n
         {
           "react-i18next": ["useTranslation", "Trans"],
         },
@@ -73,7 +81,7 @@ export default defineConfig({
   base,
   build: {
     sourcemap: true,
-    outDir: 'out',
+    outDir: "out",
   },
   resolve: {
     alias: {
