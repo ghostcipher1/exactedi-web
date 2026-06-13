@@ -3,6 +3,7 @@ import { AppRoutes } from "./router";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n";
 import AnalyticsListener from "./components/AnalyticsListener";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <BrowserRouter basename={__BASE_PATH__}>
         <AnalyticsListener />
         <AppRoutes />
+        <Analytics />
       </BrowserRouter>
     </I18nextProvider>
   );
